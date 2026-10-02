@@ -1,21 +1,39 @@
-import React, { useState } from 'react';
-import { Instagram, Plus, Image as ImageIcon, Sparkles, ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Instagram, Camera, Sparkles, ArrowUpRight, X, Maximize2, Upload, RefreshCw } from 'lucide-react';
 import { STUDIO_DATA } from '../data/studioData';
+import { savePhoto, getAllPhotos, compressImage } from '../utils/imageStorage';
 
 export const GallerySection: React.FC = () => {
-  // Allow uploading or displaying real authentic photos directly
-  const [customPhotos, setCustomPhotos] = useState<Record<string, string>>({});
+  const [photos, setPhotos] = useState<Record<string, string>>({});
+  const [loadingId, setLoadingId] = useState<string | null>(null);
 
-  const handleImageUpload = (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const [activePhoto, setActivePhoto] = useState<{
+    url: string;
+    title: string;
+    subtitle: string;
+    tag: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const ids = STUDIO_DATA.workPlaceholders.map((w) => w.id);
+    getAllPhotos(ids).then((saved) => {
+      setPhotos(saved);
+    });
+  }, []);
+
+  const handleFileUpload = async (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setCustomPhotos(prev => ({ ...prev, [id]: event.target!.result as string }));
-        }
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    try {
+      setLoadingId(id);
+      const compressedDataUrl = await compressImage(file, 1400, 0.9);
+      await savePhoto(id, compressedDataUrl);
+      setPhotos((prev) => ({ ...prev, [id]: compressedDataUrl }));
+    } catch (err) {
+      console.error('Erro ao salvar foto:', err);
+    } finally {
+      setLoadingId(null);
     }
   };
 
@@ -26,10 +44,10 @@ export const GallerySection: React.FC = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#9A7737]">
             <Sparkles className="w-3 h-3" />
-            <span>Trabalhos Realizados</span>
+            <span>Apresentação dos Serviços</span>
           </div>
           <h2 className="text-base font-semibold text-[#2C2926]">
-            Espaço de Fotografias Reais
+            Fotografias Reais dos Trabalhos
           </h2>
         </div>
 
@@ -40,61 +58,108 @@ export const GallerySection: React.FC = () => {
           className="text-xs font-medium text-[#9A7737] hover:text-[#7A5B23] flex items-center gap-1 transition-colors"
         >
           <Instagram className="w-3.5 h-3.5" />
-          <span>Ver no Instagram</span>
+          <span>Instagram</span>
           <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
       </div>
 
-      {/* Grid of clean reserved photo slots */}
+      {/* Grid of 4 square service showcase cards */}
       <div className="grid grid-cols-2 gap-3">
         {STUDIO_DATA.workPlaceholders.map((item) => {
-          const uploadedImg = customPhotos[item.id];
+          const currentImg = photos[item.id] || item.imageUrl;
+          const isLoading = loadingId === item.id;
 
           return (
             <div
               key={item.id}
               className="group relative rounded-2xl bg-white border border-[#E8DED6] overflow-hidden shadow-2xs hover:border-[#C5A059] transition-all flex flex-col"
             >
-              {/* Photo Area / Reserved slot */}
-              <div className="relative aspect-square w-full bg-[#FAF6F0] flex flex-col items-center justify-center p-3 text-center overflow-hidden">
-                {uploadedImg ? (
-                  <img
-                    src={uploadedImg}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center text-[#8A8279] p-2">
-                    <div className="w-10 h-10 rounded-full bg-white border border-[#E8DED6] flex items-center justify-center mb-2 shadow-2xs text-[#9A7737]">
-                      <ImageIcon className="w-4 h-4 stroke-[1.8]" />
-                    </div>
-                    <span className="text-[11px] font-semibold text-[#2C2926]">
-                      {item.title}
-                    </span>
-                    <span className="text-[10px] text-[#9A7737] mt-0.5">
-                      {item.tag}
-                    </span>
-                  </div>
-                )}
+              {/* Square Image Area */}
+              <div className="relative aspect-square w-full bg-[#F6F1EA] overflow-hidden">
+                {currentImg ? (
+                  <>
+                    <img
+                      src={currentImg}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
+                      onClick={() =>
+                        setActivePhoto({
+                          url: currentImg,
+                          title: item.title,
+                          subtitle: item.subtitle,
+                          tag: item.tag,
+                        })
+                      }
+                      referrerPolicy="no-referrer"
+                    />
 
-                {/* Upload overlay button allowing real photo insertion */}
-                <label className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity text-white p-2">
-                  <Plus className="w-5 h-5 mb-1" />
-                  <span className="text-[11px] font-medium text-center">
-                    {uploadedImg ? 'Trocar foto real' : 'Inserir foto real'}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => handleImageUpload(item.id, e)}
-                  />
-                </label>
+                    {/* Tag Badge */}
+                    <div className="absolute top-2 left-2 z-10 bg-white/90 backdrop-blur-xs text-[#2C2926] text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-2xs border border-[#E8DED6]">
+                      {item.tag}
+                    </div>
+
+                    {/* Expand icon button */}
+                    <button
+                      onClick={() =>
+                        setActivePhoto({
+                          url: currentImg,
+                          title: item.title,
+                          subtitle: item.subtitle,
+                          tag: item.tag,
+                        })
+                      }
+                      aria-label="Ampliar foto"
+                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-xs text-[#2C2926] flex items-center justify-center shadow-xs hover:bg-white transition-colors"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                    </button>
+
+                    {/* Subtle, mobile-friendly bottom bar to replace with the user's exact camera roll photo */}
+                    <label
+                      className="absolute bottom-2 inset-x-2 bg-black/65 backdrop-blur-xs text-white text-[10px] font-medium py-1.5 px-2 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-xs opacity-90 hover:opacity-100 transition-opacity"
+                      title="Carregar a foto real da sua galeria"
+                    >
+                      <Upload className="w-3 h-3 text-[#E2D2B5]" />
+                      <span>{isLoading ? 'Salvando...' : 'Trocar foto real'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => handleFileUpload(item.id, e)}
+                      />
+                    </label>
+                  </>
+                ) : (
+                  <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer p-4 text-center hover:bg-[#EFE7DC] transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-white border border-[#E8DED6] flex items-center justify-center text-[#9A7737] mb-2 shadow-2xs">
+                      {isLoading ? (
+                        <RefreshCw className="w-4 h-4 animate-spin text-[#9A7737]" />
+                      ) : (
+                        <Camera className="w-4 h-4" />
+                      )}
+                    </div>
+                    <span className="text-xs font-semibold text-[#2C2926]">
+                      {isLoading ? 'Carregando foto...' : 'Carregar foto real'}
+                    </span>
+                    <span className="text-[10px] text-[#8A8279] mt-0.5">
+                      Toque para escolher da galeria
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => handleFileUpload(item.id, e)}
+                    />
+                  </label>
+                )}
               </div>
 
-              {/* Subtitle */}
+              {/* Subtitle / Details */}
               <div className="p-2.5 bg-white border-t border-[#F2ECE5]">
-                <p className="text-[11px] text-[#6B635B] truncate font-light">
+                <h4 className="text-xs font-semibold text-[#2C2926] truncate">
+                  {item.title}
+                </h4>
+                <p className="text-[11px] text-[#6B635B] truncate font-light mt-0.5">
                   {item.subtitle}
                 </p>
               </div>
@@ -103,12 +168,12 @@ export const GallerySection: React.FC = () => {
         })}
       </div>
 
-      {/* Callout to Instagram for live feed */}
+      {/* Instagram feed link */}
       <div className="mt-4 p-3.5 rounded-xl bg-[#FAF6F0] border border-[#E8DED6] flex items-center justify-between text-xs">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           <Instagram className="w-4 h-4 text-[#C13584] shrink-0" />
-          <span className="text-[#5D554D]">
-            Acompanhe as publicações reais em <strong>@rachelcaetanonail</strong>
+          <span className="text-[#5D554D] truncate">
+            Acompanhe mais fotos em <strong>@rachelcaetanonail</strong>
           </span>
         </div>
         <a
@@ -117,9 +182,50 @@ export const GallerySection: React.FC = () => {
           rel="noopener noreferrer"
           className="text-[#9A7737] font-semibold hover:underline whitespace-nowrap pl-2"
         >
-          Acessar
+          Ver perfil
         </a>
       </div>
+
+      {/* Lightbox Modal for enlarged photo view */}
+      {activePhoto && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200"
+          onClick={() => setActivePhoto(null)}
+        >
+          <div
+            className="relative max-w-sm w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#E8DED6]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActivePhoto(null)}
+              aria-label="Fechar visualização"
+              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 text-[#2C2926] flex items-center justify-center shadow-md hover:bg-white transition-transform active:scale-95"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="aspect-square w-full bg-[#FAF6F0] overflow-hidden">
+              <img
+                src={activePhoto.url}
+                alt={activePhoto.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="p-4 text-center bg-white border-t border-[#F2ECE5]">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#9A7737] bg-[#FAF5ED] px-2.5 py-0.5 rounded-full">
+                {activePhoto.tag}
+              </span>
+              <h3 className="font-display text-base font-semibold text-[#2C2926] mt-1.5">
+                {activePhoto.title}
+              </h3>
+              <p className="text-xs text-[#6B635B] mt-0.5 font-light">
+                {activePhoto.subtitle}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

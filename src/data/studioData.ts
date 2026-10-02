@@ -30,31 +30,35 @@ export const STUDIO_DATA = {
     text: "Atendimento dedicado exclusivamente à saúde, ao alinhamento e à delicadeza das unhas naturais. Um trabalho minucioso pensado para quem aprecia a beleza autêntica e a sofisticação do luxo discreto."
   },
 
-  // Space for real photos / portfolio categories
+  // 4 real service showcase photos in square format
   workPlaceholders: [
     {
       id: "trabalho-1",
-      title: "Unhas Naturais Alinhadas",
-      subtitle: "Acabamento limpo e saúde da lâmina",
-      tag: "Natural"
+      title: "Borgonha Clássico",
+      subtitle: "Unhas naturais com acabamento ultra-gloss",
+      tag: "Vinho Gloss",
+      imageUrl: "/images/unhas_vinho.jpg"
     },
     {
       id: "trabalho-2",
-      title: "Esmaltação Nude & Brilho",
-      subtitle: "Tons suaves com durabilidade e leveza",
-      tag: "Nude"
+      title: "Preto Glossy Almond",
+      subtitle: "Alinhamento e simetria com brilho espelhado",
+      tag: "Black Shine",
+      imageUrl: "/images/unhas_preto.jpg"
     },
     {
       id: "trabalho-3",
-      title: "Micro Francesa Delicada",
-      subtitle: "Traço minimalista de alta precisão",
-      tag: "Minimalista"
+      title: "Glazed Pearl Nude",
+      subtitle: "Efeito perolado translúcido e delicado",
+      tag: "Perolada",
+      imageUrl: "/images/unhas_glaze.jpg"
     },
     {
       id: "trabalho-4",
-      title: "Cuticulagem & Cuidado Saudável",
-      subtitle: "Hidratação e preservação natural",
-      tag: "Cuidado"
+      title: "Cereja Intenso",
+      subtitle: "Cuidado e durabilidade na lâmina natural",
+      tag: "Deep Cherry",
+      imageUrl: "/images/unhas_cereja.jpg"
     }
   ]
 };
