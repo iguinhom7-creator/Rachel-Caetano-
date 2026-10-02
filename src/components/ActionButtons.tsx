@@ -14,13 +14,13 @@ export const ActionButtons: React.FC = () => {
       badge: "Agendamento"
     },
     {
-      label: "Cursos de Alongamento Natural",
+      label: "Curso de Alongamento Natural",
       description: "Informações, técnicas e vagas pelo WhatsApp",
       url: STUDIO_DATA.links.whatsappCourse,
       icon: GraduationCap,
       iconColor: "text-[#C5A059]",
       iconBg: "bg-[#C5A059]/15",
-      badge: "Cursos & Vagas"
+      badge: "Curso & Vagas"
     },
     {
       label: "Instagram",

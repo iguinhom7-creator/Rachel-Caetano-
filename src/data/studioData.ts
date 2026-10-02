@@ -1,7 +1,7 @@
 export const STUDIO_DATA = {
   name: "Rachel Caetano",
   title: "Rachel Caetano Nail Designer",
-  specialty: "Alongamento Natural & Unhas Naturais",
+  specialty: "Especialista em Alongamentos Naturais",
   city: "Belo Horizonte · BH",
   address: "Rua Sergipe, 1087 · Savassi, Belo Horizonte - MG",
   shortAddress: "Rua Sergipe, 1087 · Savassi, BH",
@@ -13,17 +13,17 @@ export const STUDIO_DATA = {
   
   links: {
     whatsapp: "https://wa.me/message/3VLZFGNH7M4CL1",
-    whatsappCourse: "https://wa.me/message/3VLZFGNH7M4CL1?text=Ol%C3%A1%2C%20Rachel!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20os%20cursos%20de%20alongamento%20natural.",
+    whatsappCourse: "https://wa.me/message/3VLZFGNH7M4CL1?text=Ol%C3%A1%2C%20Rachel!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20curso%20de%20alongamento%20natural.",
     instagram: "https://www.instagram.com/rachelcaetanonail?stkn=dmwyOXpjOTFpNW0=",
     google: "https://www.google.com.br/search?kgmid=/g/11y_t82hlf&hl=pt-BR&q=Rachel+Caetano+Nail+designer+BH&shem=epsd1,ltae,rimspwouoe&shndl=30&source=sh/x/loc/osrp/m1/3&kgs=bcea51efd37be5eb&utm_source=epsd1,ltae,rimspwouoe,sh/x/loc/osrp/m1/3",
     maps: "https://www.google.com/maps/search/?api=1&query=Rua+Sergipe+1087+Savassi+Belo+Horizonte+MG"
   },
 
   course: {
-    title: "Cursos de Alongamento Natural",
+    title: "Curso de Alongamento Natural",
     badge: "Capacitação & Mentoria",
     description: "Capacitação profissional em alongamento com efeito natural, estrutura fina, simetria, curvatura delicada e biossegurança para entregar unhas impecáveis e resistentes.",
-    cta: "Consultar cursos no WhatsApp"
+    cta: "Consultar curso no WhatsApp"
   },
 
   about: {
