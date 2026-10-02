@@ -35,30 +35,30 @@ export const STUDIO_DATA = {
     {
       id: "trabalho-1",
       title: "Borgonha Clássico",
-      subtitle: "Unhas naturais com acabamento ultra-gloss",
+      subtitle: "Esmaltação vinho com anéis dourados",
       tag: "Vinho Gloss",
-      imageUrl: "/images/unhas_vinho.jpg"
+      imageUrl: ""
     },
     {
       id: "trabalho-2",
       title: "Preto Glossy Almond",
-      subtitle: "Alinhamento e simetria com brilho espelhado",
+      subtitle: "Unhas amendoadas com reflexo espelhado",
       tag: "Black Shine",
-      imageUrl: "/images/unhas_preto.jpg"
+      imageUrl: ""
     },
     {
       id: "trabalho-3",
       title: "Glazed Pearl Nude",
-      subtitle: "Efeito perolado translúcido e delicado",
+      subtitle: "Efeito perolado acetinado com anel de esmeralda",
       tag: "Perolada",
-      imageUrl: "/images/unhas_glaze.jpg"
+      imageUrl: ""
     },
     {
       id: "trabalho-4",
-      title: "Cereja Intenso",
-      subtitle: "Cuidado e durabilidade na lâmina natural",
+      title: "Cereja Intenso no Jeans",
+      subtitle: "Unhas naturais com acabamento fino e alinhado",
       tag: "Deep Cherry",
-      imageUrl: "/images/unhas_cereja.jpg"
+      imageUrl: ""
     }
   ]
 };

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Instagram, Camera, Sparkles, ArrowUpRight, X, Maximize2, Upload, RefreshCw } from 'lucide-react';
+import { Instagram, Camera, Sparkles, ArrowUpRight, X, Maximize2, Upload, Link as LinkIcon, Check } from 'lucide-react';
 import { STUDIO_DATA } from '../data/studioData';
 import { savePhoto, getAllPhotos, compressImage } from '../utils/imageStorage';
 
 export const GallerySection: React.FC = () => {
   const [photos, setPhotos] = useState<Record<string, string>>({});
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [urlModalId, setUrlModalId] = useState<string | null>(null);
+  const [urlInput, setUrlInput] = useState('');
 
   const [activePhoto, setActivePhoto] = useState<{
     url: string;
@@ -27,7 +29,8 @@ export const GallerySection: React.FC = () => {
 
     try {
       setLoadingId(id);
-      const compressedDataUrl = await compressImage(file, 1400, 0.9);
+      // Keep maximum resolution and natural quality without re-encoding distortions
+      const compressedDataUrl = await compressImage(file, 1600, 0.92);
       await savePhoto(id, compressedDataUrl);
       setPhotos((prev) => ({ ...prev, [id]: compressedDataUrl }));
     } catch (err) {
@@ -37,10 +40,19 @@ export const GallerySection: React.FC = () => {
     }
   };
 
+  const handleSaveUrl = async (id: string) => {
+    if (!urlInput.trim()) return;
+    const url = urlInput.trim();
+    await savePhoto(id, url);
+    setPhotos((prev) => ({ ...prev, [id]: url }));
+    setUrlModalId(null);
+    setUrlInput('');
+  };
+
   return (
     <section id="trabalhos" className="py-6 max-w-xl mx-auto px-4">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#9A7737]">
             <Sparkles className="w-3 h-3" />
@@ -63,9 +75,9 @@ export const GallerySection: React.FC = () => {
         </a>
       </div>
 
-      {/* Grid of 4 square service showcase cards */}
+      {/* Grid of 4 square authentic service slots */}
       <div className="grid grid-cols-2 gap-3">
-        {STUDIO_DATA.workPlaceholders.map((item) => {
+        {STUDIO_DATA.workPlaceholders.map((item, idx) => {
           const currentImg = photos[item.id] || item.imageUrl;
           const isLoading = loadingId === item.id;
 
@@ -74,8 +86,8 @@ export const GallerySection: React.FC = () => {
               key={item.id}
               className="group relative rounded-2xl bg-white border border-[#E8DED6] overflow-hidden shadow-2xs hover:border-[#C5A059] transition-all flex flex-col"
             >
-              {/* Square Image Area */}
-              <div className="relative aspect-square w-full bg-[#F6F1EA] overflow-hidden">
+              {/* Square Area */}
+              <div className="relative aspect-square w-full bg-[#FAF7F2] overflow-hidden">
                 {currentImg ? (
                   <>
                     <img
@@ -94,11 +106,11 @@ export const GallerySection: React.FC = () => {
                     />
 
                     {/* Tag Badge */}
-                    <div className="absolute top-2 left-2 z-10 bg-white/90 backdrop-blur-xs text-[#2C2926] text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-2xs border border-[#E8DED6]">
+                    <div className="absolute top-2 left-2 z-10 bg-white/95 backdrop-blur-xs text-[#2C2926] text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-2xs border border-[#E8DED6]">
                       {item.tag}
                     </div>
 
-                    {/* Expand icon button */}
+                    {/* Expand icon */}
                     <button
                       onClick={() =>
                         setActivePhoto({
@@ -108,49 +120,78 @@ export const GallerySection: React.FC = () => {
                           tag: item.tag,
                         })
                       }
-                      aria-label="Ampliar foto"
-                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-xs text-[#2C2926] flex items-center justify-center shadow-xs hover:bg-white transition-colors"
+                      aria-label="Ampliar foto original"
+                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs text-[#2C2926] flex items-center justify-center shadow-xs hover:bg-white transition-colors"
                     >
                       <Maximize2 className="w-3.5 h-3.5" />
                     </button>
 
-                    {/* Subtle, mobile-friendly bottom bar to replace with the user's exact camera roll photo */}
-                    <label
-                      className="absolute bottom-2 inset-x-2 bg-black/65 backdrop-blur-xs text-white text-[10px] font-medium py-1.5 px-2 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer shadow-xs opacity-90 hover:opacity-100 transition-opacity"
-                      title="Carregar a foto real da sua galeria"
-                    >
-                      <Upload className="w-3 h-3 text-[#E2D2B5]" />
-                      <span>{isLoading ? 'Salvando...' : 'Trocar foto real'}</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => handleFileUpload(item.id, e)}
-                      />
-                    </label>
+                    {/* Bottom action to swap photo */}
+                    <div className="absolute bottom-2 inset-x-2 flex items-center gap-1.5">
+                      <label
+                        className="flex-1 bg-black/70 backdrop-blur-xs text-white text-[10px] font-medium py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 cursor-pointer hover:bg-black/85 transition-colors"
+                        title="Substituir por outra foto original"
+                      >
+                        <Upload className="w-3 h-3 text-[#E2D2B5]" />
+                        <span>{isLoading ? 'Salvando...' : 'Alterar foto'}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleFileUpload(item.id, e)}
+                        />
+                      </label>
+
+                      <button
+                        onClick={() => {
+                          setUrlModalId(item.id);
+                          setUrlInput(currentImg.startsWith('http') ? currentImg : '');
+                        }}
+                        className="w-7 h-7 rounded-lg bg-black/70 text-white flex items-center justify-center hover:bg-black/85 transition-colors"
+                        title="Inserir link da foto"
+                      >
+                        <LinkIcon className="w-3 h-3" />
+                      </button>
+                    </div>
                   </>
                 ) : (
-                  <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer p-4 text-center hover:bg-[#EFE7DC] transition-colors">
-                    <div className="w-10 h-10 rounded-full bg-white border border-[#E8DED6] flex items-center justify-center text-[#9A7737] mb-2 shadow-2xs">
-                      {isLoading ? (
-                        <RefreshCw className="w-4 h-4 animate-spin text-[#9A7737]" />
-                      ) : (
-                        <Camera className="w-4 h-4" />
-                      )}
+                  /* Empty slot waiting for original photo */
+                  <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-[#FAF7F2]">
+                    <div className="w-10 h-10 rounded-2xl bg-white border border-[#E8DED6] flex items-center justify-center text-[#9A7737] mb-2 shadow-2xs">
+                      <Camera className="w-5 h-5 stroke-[1.8]" />
                     </div>
-                    <span className="text-xs font-semibold text-[#2C2926]">
-                      {isLoading ? 'Carregando foto...' : 'Carregar foto real'}
+
+                    <span className="text-[11px] font-semibold text-[#2C2926] leading-tight">
+                      Foto Original {idx + 1}
                     </span>
-                    <span className="text-[10px] text-[#8A8279] mt-0.5">
-                      Toque para escolher da galeria
+                    <span className="text-[10px] text-[#8A8279] mt-0.5 line-clamp-1">
+                      {item.subtitle}
                     </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleFileUpload(item.id, e)}
-                    />
-                  </label>
+
+                    <div className="mt-2.5 flex items-center gap-1.5 w-full">
+                      <label className="flex-1 btn-gold-luxury py-1.5 px-2 rounded-lg text-[10px] font-semibold flex items-center justify-center gap-1 cursor-pointer shadow-2xs">
+                        <Upload className="w-3 h-3" />
+                        <span>{isLoading ? 'Carregando...' : 'Inserir foto'}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleFileUpload(item.id, e)}
+                        />
+                      </label>
+
+                      <button
+                        onClick={() => {
+                          setUrlModalId(item.id);
+                          setUrlInput('');
+                        }}
+                        className="w-6.5 h-6.5 rounded-lg border border-[#E8DED6] bg-white text-[#6B635B] flex items-center justify-center hover:bg-[#F2ECE5] transition-colors"
+                        title="Inserir link da foto (Postimages, etc.)"
+                      >
+                        <LinkIcon className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
 
@@ -168,28 +209,71 @@ export const GallerySection: React.FC = () => {
         })}
       </div>
 
-      {/* Instagram feed link */}
-      <div className="mt-4 p-3.5 rounded-xl bg-[#FAF6F0] border border-[#E8DED6] flex items-center justify-between text-xs">
-        <div className="flex items-center gap-2 min-w-0">
-          <Instagram className="w-4 h-4 text-[#C13584] shrink-0" />
-          <span className="text-[#5D554D] truncate">
-            Acompanhe mais fotos em <strong>@rachelcaetanonail</strong>
-          </span>
+      {/* Guide Card explaining the authentic original photos */}
+      <div className="mt-3.5 p-3 rounded-xl bg-white border border-[#E8DED6] flex items-start gap-2.5 text-xs text-[#5D554D] shadow-2xs">
+        <Camera className="w-4 h-4 text-[#9A7737] shrink-0 mt-0.5" />
+        <div className="leading-relaxed text-[11.5px]">
+          <strong>Fotos 100% Originais da Câmera:</strong> Toque no botão <strong>Inserir foto</strong> de cada moldura para selecionar as 4 fotos originais diretamente do seu celular ou computador. Elas serão mantidas naturais, sem filtros ou IA.
         </div>
-        <a
-          href={STUDIO_DATA.links.instagram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#9A7737] font-semibold hover:underline whitespace-nowrap pl-2"
-        >
-          Ver perfil
-        </a>
       </div>
+
+      {/* URL Modal */}
+      {urlModalId && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150"
+          onClick={() => setUrlModalId(null)}
+        >
+          <div
+            className="relative max-w-sm w-full bg-white rounded-2xl p-5 shadow-xl border border-[#E8DED6]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-[#2C2926]">
+                Inserir link da foto original
+              </h3>
+              <button
+                onClick={() => setUrlModalId(null)}
+                className="w-7 h-7 rounded-full bg-[#FAFAF8] text-[#6B635B] flex items-center justify-center hover:bg-[#F2ECE5]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-xs text-[#7B736A] mb-3">
+              Cole o link direto da imagem (ex: do Postimages, Imgur ou Google Drive):
+            </p>
+
+            <input
+              type="url"
+              value={urlInput}
+              onChange={(e) => setUrlInput(e.target.value)}
+              placeholder="https://i.postimg.cc/..."
+              className="w-full px-3 py-2 text-xs rounded-xl border border-[#E8DED6] focus:outline-none focus:border-[#C5A059] bg-[#FAFAF8] mb-3"
+            />
+
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setUrlModalId(null)}
+                className="px-3 py-1.5 rounded-lg text-xs text-[#6B635B] hover:bg-[#F2ECE5]"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => handleSaveUrl(urlModalId)}
+                className="btn-gold-luxury px-4 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5"
+              >
+                <Check className="w-3.5 h-3.5" />
+                <span>Salvar foto</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lightbox Modal for enlarged photo view */}
       {activePhoto && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs animate-in fade-in duration-200"
           onClick={() => setActivePhoto(null)}
         >
           <div
