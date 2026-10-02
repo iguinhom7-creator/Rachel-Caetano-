@@ -1,41 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Instagram, Sparkles, ArrowUpRight, X, Maximize2, Plus, Camera } from 'lucide-react';
+import React, { useState } from 'react';
+import { Instagram, Sparkles, ArrowUpRight, X, Maximize2 } from 'lucide-react';
 import { STUDIO_DATA } from '../data/studioData';
-import { savePhoto, getAllPhotos, compressImage } from '../utils/imageStorage';
 
 export const GallerySection: React.FC = () => {
-  const [photos, setPhotos] = useState<Record<string, string>>({});
-  const [loadingId, setLoadingId] = useState<string | null>(null);
-
   const [activePhoto, setActivePhoto] = useState<{
     url: string;
     title: string;
     subtitle: string;
     tag: string;
   } | null>(null);
-
-  useEffect(() => {
-    const ids = STUDIO_DATA.workPlaceholders.map((w) => w.id);
-    getAllPhotos(ids).then((saved) => {
-      setPhotos(saved);
-    });
-  }, []);
-
-  const handleFileUpload = async (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      setLoadingId(id);
-      const compressedDataUrl = await compressImage(file, 1600, 0.92);
-      await savePhoto(id, compressedDataUrl);
-      setPhotos((prev) => ({ ...prev, [id]: compressedDataUrl }));
-    } catch (err) {
-      console.error('Erro ao salvar foto:', err);
-    } finally {
-      setLoadingId(null);
-    }
-  };
 
   return (
     <section id="trabalhos" className="py-6 max-w-xl mx-auto px-4">
@@ -47,7 +20,7 @@ export const GallerySection: React.FC = () => {
             <span>Apresentação dos Serviços</span>
           </div>
           <h2 className="text-base font-semibold text-[#2C2926]">
-            Unhas Naturais & Acabamento
+            Alongamento Natural & Acabamento
           </h2>
         </div>
 
@@ -66,73 +39,44 @@ export const GallerySection: React.FC = () => {
       {/* Grid of 4 square service cards */}
       <div className="grid grid-cols-2 gap-3">
         {STUDIO_DATA.workPlaceholders.map((item) => {
-          const currentImg = photos[item.id] || item.imageUrl;
-          const isLoading = loadingId === item.id;
-
           return (
             <div
               key={item.id}
               className="group relative rounded-2xl bg-white border border-[#E8DED6] overflow-hidden shadow-2xs hover:border-[#C5A059] transition-all flex flex-col"
             >
-              {/* Square Container */}
-              <div className="relative aspect-square w-full bg-[#FAF7F2] overflow-hidden">
-                {currentImg ? (
-                  <>
-                    <img
-                      src={currentImg}
-                      alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
-                      onClick={() =>
-                        setActivePhoto({
-                          url: currentImg,
-                          title: item.title,
-                          subtitle: item.subtitle,
-                          tag: item.tag,
-                        })
-                      }
-                      referrerPolicy="no-referrer"
-                    />
+              {/* Square Photo Container */}
+              <div 
+                className="relative aspect-square w-full bg-[#FAF7F2] overflow-hidden cursor-pointer"
+                onClick={() =>
+                  setActivePhoto({
+                    url: item.imageUrl || item.fallbackUrl,
+                    title: item.title,
+                    subtitle: item.subtitle,
+                    tag: item.tag,
+                  })
+                }
+              >
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  onError={(e) => {
+                    if (e.currentTarget.src !== item.fallbackUrl) {
+                      e.currentTarget.src = item.fallbackUrl;
+                    }
+                  }}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
 
-                    {/* Tag Badge */}
-                    <div className="absolute top-2 left-2 z-10 bg-white/95 backdrop-blur-xs text-[#2C2926] text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-2xs border border-[#E8DED6]">
-                      {item.tag}
-                    </div>
+                {/* Tag Badge */}
+                <div className="absolute top-2 left-2 z-10 bg-white/95 backdrop-blur-xs text-[#2C2926] text-[10px] font-semibold px-2 py-0.5 rounded-full shadow-2xs border border-[#E8DED6]">
+                  {item.tag}
+                </div>
 
-                    {/* Expand icon */}
-                    <button
-                      onClick={() =>
-                        setActivePhoto({
-                          url: currentImg,
-                          title: item.title,
-                          subtitle: item.subtitle,
-                          tag: item.tag,
-                        })
-                      }
-                      aria-label="Ampliar foto"
-                      className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs text-[#2C2926] flex items-center justify-center shadow-xs hover:bg-white transition-colors"
-                    >
-                      <Maximize2 className="w-3.5 h-3.5" />
-                    </button>
-                  </>
-                ) : (
-                  <label className="w-full h-full flex flex-col items-center justify-center p-3 text-center cursor-pointer hover:bg-[#F2ECE5] transition-colors">
-                    <div className="w-10 h-10 rounded-2xl bg-white border border-[#E8DED6] flex items-center justify-center text-[#9A7737] mb-2 shadow-2xs">
-                      <Camera className="w-5 h-5 stroke-[1.8]" />
-                    </div>
-                    <span className="text-xs font-semibold text-[#2C2926]">
-                      {item.title}
-                    </span>
-                    <span className="text-[10px] text-[#8A8279] mt-0.5 line-clamp-1">
-                      {item.tag}
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleFileUpload(item.id, e)}
-                    />
-                  </label>
-                )}
+                {/* Expand icon on hover/tap */}
+                <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs text-[#2C2926] flex items-center justify-center shadow-xs opacity-80 group-hover:opacity-100 transition-opacity">
+                  <Maximize2 className="w-3.5 h-3.5" />
+                </div>
               </div>
 
               {/* Subtitle / Details */}
