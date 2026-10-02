@@ -14,8 +14,8 @@ export const ActionButtons: React.FC = () => {
       badge: "Agendamento"
     },
     {
-      label: "Cursos de Unhas Naturais",
-      description: "Informações e vagas pelo WhatsApp",
+      label: "Cursos de Alongamento Natural",
+      description: "Informações, técnicas e vagas pelo WhatsApp",
       url: STUDIO_DATA.links.whatsappCourse,
       icon: GraduationCap,
       iconColor: "text-[#C5A059]",

@@ -54,7 +54,7 @@ export const Hero: React.FC = () => {
       {/* Specialty Highlight */}
       <div className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest text-[#9A7737] uppercase">
         <Sparkles className="w-3 h-3 text-[#C5A059]" />
-        <span>Especialista em Unhas Naturais</span>
+        <span>{STUDIO_DATA.specialty}</span>
         <Sparkles className="w-3 h-3 text-[#C5A059]" />
       </div>
 
