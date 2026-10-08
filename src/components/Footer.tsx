@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, MapPin, ArrowUp } from 'lucide-react';
+import { Instagram, MapPin, ArrowUp, MessageCircle } from 'lucide-react';
 import { ANGELICA_DATA } from '../data/angelicaData';
 
 export const Footer: React.FC = () => {
@@ -27,7 +27,17 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Social and back to top */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <a
+              href={ANGELICA_DATA.links.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-white border border-[#EAE2D8] flex items-center justify-center text-[#2C2724] hover:text-[#25D366] hover:border-[#25D366] transition-colors shadow-2xs"
+              aria-label="WhatsApp de Angélica Souza"
+            >
+              <MessageCircle className="w-4 h-4 fill-current/10" />
+            </a>
+
             <a
               href={ANGELICA_DATA.links.instagram}
               target="_blank"

@@ -24,15 +24,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6">
         
-        {/* Profile Photo Frame */}
-        <div className="flex justify-center mb-5">
-          <div className="relative group">
-            <div className="p-1 rounded-3xl bg-gradient-to-b from-[#DFCCA6] via-[#FAF7F2] to-[#C8A97E] shadow-sm transition-transform duration-300 group-hover:scale-[1.02]">
-              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-[22px] bg-[#FAF7F2] overflow-hidden relative">
+        {/* Profile Photo Frame - Showing the entire photo centered */}
+        <div className="flex justify-center mb-7">
+          <div className="relative group max-w-[250px] sm:max-w-[280px] w-full">
+            <div className="p-1.5 rounded-[28px] bg-gradient-to-b from-[#DFCCA6] via-[#FAF7F2] to-[#C8A97E] shadow-sm transition-transform duration-300 group-hover:scale-[1.01]">
+              <div className="w-full aspect-[533/800] rounded-[22px] bg-[#FAF7F2] overflow-hidden relative">
                 <img
                   src={ANGELICA_DATA.profilePhoto}
                   alt="Angélica Souza - Nail Designer"
-                  className="w-full h-full object-cover object-[center_18%] transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover object-[62%_center] scale-108 translate-x-3 sm:translate-x-4 transition-transform duration-500"
                   onError={(e) => {
                     if (e.currentTarget.src !== ANGELICA_DATA.fallbackProfilePhoto) {
                       e.currentTarget.src = ANGELICA_DATA.fallbackProfilePhoto;
@@ -44,8 +44,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
             </div>
 
             {/* Subtle verification badge */}
-            <div className="absolute -bottom-1 -right-1 bg-white border border-[#EAE2D8] text-[#A8824B] p-1.5 rounded-full shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-white border border-[#EAE2D8] text-[#A8824B] px-3.5 py-1 rounded-full shadow-2xs flex items-center gap-1.5 text-[11px] font-semibold whitespace-nowrap">
+              <Sparkles className="w-3.5 h-3.5 text-[#C8A97E]" />
+              <span>Nail Designer</span>
             </div>
           </div>
         </div>

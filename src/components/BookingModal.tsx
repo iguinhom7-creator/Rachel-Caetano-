@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Instagram, MapPin, Sparkles, ArrowUpRight, Copy, Check, MessageCircle } from 'lucide-react';
+import { X, Instagram, MapPin, Sparkles, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { ANGELICA_DATA } from '../data/angelicaData';
 
 interface BookingModalProps {
@@ -34,7 +34,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) =
         <button
           onClick={onClose}
           aria-label="Fechar janela"
-          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white border border-[#EAE2D8] text-[#2C2724] flex items-center justify-center hover:bg-[#F5ECE8] active:scale-95 transition-all shadow-2xs"
+          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white border border-[#EAE2D8] text-[#2C2724] flex items-center justify-center hover:bg-[#F5ECE8] active:scale-95 transition-all shadow-2xs cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
@@ -64,31 +64,32 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Modal Body */}
-        <div className="py-5 space-y-4">
+        <div className="py-5 space-y-3.5">
           <p className="text-xs sm:text-sm text-[#4A433D] font-light text-center leading-relaxed">
-            Os agendamentos são realizados diretamente com a Angélica pelo <strong>Instagram Direct</strong>. Envie uma mensagem informando o procedimento desejado ou suas preferências.
+            Entre em contato para consultar horários disponíveis e agendar seu atendimento exclusivo.
           </p>
 
-          {/* Direct CTA Button */}
+          {/* WhatsApp Direct CTA Button */}
+          <a
+            href={ANGELICA_DATA.links.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-3.5 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs active:scale-98 transition-all"
+          >
+            <MessageCircle className="w-4.5 h-4.5 fill-current" />
+            <span>Conversar no WhatsApp (31) 99096-9136</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+
+          {/* Instagram Direct CTA Button */}
           <a
             href={ANGELICA_DATA.links.instagramDirect}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-[#E1306C] via-[#FD1D1D] to-[#F56040] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:opacity-95 hover:scale-[1.01] active:scale-98 transition-all"
-          >
-            <Instagram className="w-4 h-4 fill-current" />
-            <span>Chamar no Instagram Direct</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
-
-          {/* Alternative Profile Link */}
-          <a
-            href={ANGELICA_DATA.links.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
             className="w-full py-3 px-4 rounded-xl bg-white hover:bg-[#F5ECE8] border border-[#EAE2D8] text-[#2C2724] font-medium text-xs flex items-center justify-center gap-2 transition-colors"
           >
-            <span>Ver perfil completo {ANGELICA_DATA.instagramHandle}</span>
+            <Instagram className="w-4 h-4 text-[#E1306C]" />
+            <span>Chamar no Instagram Direct</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-[#8C7F75]" />
           </a>
 
@@ -104,7 +105,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) =
 
             <button
               onClick={handleCopyAddress}
-              className="text-[11px] font-semibold text-[#A8824B] hover:text-[#7D5E2F] pl-2 whitespace-nowrap"
+              className="text-[11px] font-semibold text-[#A8824B] hover:text-[#7D5E2F] pl-2 whitespace-nowrap cursor-pointer"
             >
               {copied ? 'Copiado!' : 'Copiar'}
             </button>
@@ -115,7 +116,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) =
         <div className="pt-3 border-t border-[#EAE2D8] text-center">
           <button
             onClick={onClose}
-            className="text-xs text-[#8C7F75] hover:text-[#2C2724] transition-colors"
+            className="text-xs text-[#8C7F75] hover:text-[#2C2724] transition-colors cursor-pointer"
           >
             Voltar ao site
           </button>

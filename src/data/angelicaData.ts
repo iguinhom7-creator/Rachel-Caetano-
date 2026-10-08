@@ -17,11 +17,13 @@ export const ANGELICA_DATA = {
   fallbackProfilePhoto: "https://i.postimg.cc/xjkf7BnT/IMG-1849.jpg",
 
   links: {
+    whatsapp: "https://wa.me/5531990969136",
     instagram: "https://www.instagram.com/angelica_souzanails?stkn=YTJlYWVqbjMydDM5",
     instagramDirect: "https://ig.me/m/angelica_souzanails",
     googleMaps: "https://share.google/JbGDdMfH4LNgpmwoX",
     gallery: "https://postimg.cc/gallery/bGB1S9q"
   },
+  phone: "(31) 99096-9136",
 
   instagramHandle: "@angelica_souzanails",
   address: "Rua Joaquim de Paula, 369 – Inconfidência",

@@ -4,10 +4,26 @@ import { ANGELICA_DATA } from '../data/angelicaData';
 
 export const InstagramSection: React.FC = () => {
   const previewImages = [
-    { url: '/images/angelica/trabalho_1.png', fallback: 'https://i.postimg.cc/7LCtD1h8/IMG-1852.png' },
-    { url: '/images/angelica/trabalho_2.jpg', fallback: 'https://i.postimg.cc/zfL25wB9/IMG-1848.jpg' },
-    { url: '/images/angelica/trabalho_3.jpg', fallback: 'https://i.postimg.cc/YS4DkN95/IMG-1854.jpg' },
-    { url: '/images/angelica/trabalho_4.jpg', fallback: 'https://i.postimg.cc/tg1vydTS/IMG-1847.jpg' }
+    { 
+      url: '/images/angelica/trabalho_1.png', 
+      fallback: 'https://i.postimg.cc/7LCtD1h8/IMG-1852.png',
+      objectPosition: 'object-[center_60%]'
+    },
+    { 
+      url: '/images/angelica/trabalho_2.jpg', 
+      fallback: 'https://i.postimg.cc/zfL25wB9/IMG-1848.jpg',
+      objectPosition: 'object-center'
+    },
+    { 
+      url: '/images/angelica/trabalho_3.jpg', 
+      fallback: 'https://i.postimg.cc/YS4DkN95/IMG-1854.jpg',
+      objectPosition: 'object-center'
+    },
+    { 
+      url: '/images/angelica/trabalho_4.jpg', 
+      fallback: 'https://i.postimg.cc/tg1vydTS/IMG-1847.jpg',
+      objectPosition: 'object-[45%_72%]' // Centraliza perfeitamente a unha vermelha sem cortar
+    }
   ];
 
   return (
@@ -86,7 +102,7 @@ export const InstagramSection: React.FC = () => {
                   onError={(e) => {
                     e.currentTarget.src = img.fallback;
                   }}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`w-full h-full object-cover ${img.objectPosition} group-hover:scale-105 transition-transform duration-500`}
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white gap-1.5 text-xs font-medium">
                   <Instagram className="w-4 h-4" />
