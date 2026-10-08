@@ -1,64 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ActionLayers } from './components/ActionLayers';
-import { AboutSection } from './components/AboutSection';
-import { SpecialtySection } from './components/SpecialtySection';
+import { ActionButtons } from './components/ActionButtons';
+import { ServicesSection } from './components/ServicesSection';
+import { GallerySection } from './components/GallerySection';
+import { CoursesSection } from './components/CoursesSection';
+import { ReviewsSection } from './components/ReviewsSection';
 import { InstagramSection } from './components/InstagramSection';
 import { LocationSection } from './components/LocationSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
-import { BookingModal } from './components/BookingModal';
 import { FloatingMobileCta } from './components/FloatingMobileCta';
 
 export function App() {
-  const [bookingModalOpen, setBookingModalOpen] = useState(false);
-
-  const handleOpenBooking = () => {
-    setBookingModalOpen(true);
-  };
-
-  const handleCloseBooking = () => {
-    setBookingModalOpen(false);
-  };
-
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#2C2724] font-body flex flex-col selection:bg-[#EBDBC8] selection:text-[#3B2C1A]">
-      {/* Fixed Navigation Header */}
-      <Navbar onOpenBooking={handleOpenBooking} />
+    <div className="min-h-screen bg-[#FAF8F5] text-[#24201E] font-body flex flex-col selection:bg-[#EFE3D3] selection:text-[#3B2C1A]">
+      {/* 1. Header de navegação minimalista */}
+      <Navbar />
 
-      {/* Main Page Flow */}
       <main className="flex-grow">
-        {/* 1. Hero / Primeira Tela (com a foto oficial de perfil) */}
-        <Hero onOpenBooking={handleOpenBooking} />
+        {/* 2. Hero com Logo oficial preservada, Nome, Frase sofisticada e Botões */}
+        <Hero />
 
-        {/* 2. Camadas de Links em destaque (Instagram, Google, Agendamento) */}
-        <ActionLayers onOpenBooking={handleOpenBooking} />
+        {/* 3. Acesso rápido aos canais oficiais (WhatsApp, Instagram, Google) */}
+        <ActionButtons />
 
-        {/* 3. Sobre a Profissional */}
-        <AboutSection onOpenBooking={handleOpenBooking} />
+        {/* 4. Serviços do Studio em cards elegantes */}
+        <ServicesSection />
 
-        {/* 4. Especialidade */}
-        <SpecialtySection />
+        {/* 6. Galeria "Conheça meu trabalho" com fotos reais e visualização ampliada */}
+        <GallerySection />
 
-        {/* 5. Instagram */}
+        {/* 7. Cursos e Formação com técnicas ensinadas e botão "Quero saber mais" */}
+        <CoursesSection />
+
+        {/* 8. Avaliações reais "O que minhas clientes dizem" com selo Google 5.0 estrelas */}
+        <ReviewsSection />
+
+        {/* 9. Seção de destaque do Instagram com botão "SEGUIR NO INSTAGRAM" */}
         <InstagramSection />
 
-        {/* 6. Localização */}
+        {/* 10. Localização do Studio "Onde estamos" em Belo Horizonte */}
         <LocationSection />
 
-        {/* 7. CTA Final */}
-        <FinalCtaSection onOpenBooking={handleOpenBooking} />
+        {/* 11. Chamada final de agendamento */}
+        <FinalCtaSection />
       </main>
 
-      {/* Footer */}
+      {/* 12. Rodapé minimalista com links e frase de encerramento */}
       <Footer />
 
-      {/* Floating Action Button for Mobile */}
-      <FloatingMobileCta onOpenBooking={handleOpenBooking} />
-
-      {/* Booking / Scheduling Modal */}
-      <BookingModal isOpen={bookingModalOpen} onClose={handleCloseBooking} />
+      {/* 13. Botão flutuante do WhatsApp sempre visível no smartphone */}
+      <FloatingMobileCta />
     </div>
   );
 }

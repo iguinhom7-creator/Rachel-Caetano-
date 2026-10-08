@@ -1,53 +1,61 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { ANGELICA_DATA } from '../data/angelicaData';
+import { MessageCircle, ArrowRight, ShieldCheck, Instagram } from 'lucide-react';
+import { RACHEL_DATA } from '../data/rachelData';
 
-interface FinalCtaSectionProps {
-  onOpenBooking: () => void;
-}
-
-export const FinalCtaSection: React.FC<FinalCtaSectionProps> = ({ onOpenBooking }) => {
+export const FinalCtaSection: React.FC = () => {
   return (
-    <section id="agendar" className="py-18 sm:py-24 bg-gradient-to-b from-[#FAF7F2] via-[#F5ECE8] to-[#FAF7F2] relative overflow-hidden">
-      <div 
-        className="absolute -top-24 -left-24 w-96 h-96 bg-[#DFCCA6]/25 rounded-full blur-3xl pointer-events-none" 
-        aria-hidden="true" 
-      />
-      <div 
-        className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#F5ECE8] rounded-full blur-3xl pointer-events-none" 
-        aria-hidden="true" 
+    <section id="agendar" className="py-20 sm:py-28 bg-gradient-to-b from-[#FAF8F5] via-[#F4ECE1]/50 to-[#FAF8F5] relative overflow-hidden text-center">
+      {/* Decorative ambient gradients */}
+      <div
+        className="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#EFE3D3]/40 to-transparent blur-3xl pointer-events-none"
+        aria-hidden="true"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* Subtle trust badge */}
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#A8824B] mb-3">
+          <ShieldCheck className="w-3.5 h-3.5" />
+          <span>Atendimento Exclusivo com Hora Marcada</span>
+        </div>
+
         {/* Title */}
-        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#2C2724] tracking-tight leading-[1.15]">
-          {ANGELICA_DATA.finalCta.title}
+        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-[#24201E] tracking-tight leading-[1.18]">
+          {RACHEL_DATA.finalCta.title}
         </h2>
 
-        {/* Description */}
-        <p className="mt-4 text-base sm:text-lg text-[#5C534D] font-light max-w-xl mx-auto leading-relaxed">
-          {ANGELICA_DATA.finalCta.description}
+        {/* Subtitle / Description */}
+        <p className="mt-4 text-sm sm:text-base md:text-lg text-[#524B45] font-light max-w-xl mx-auto leading-relaxed">
+          {RACHEL_DATA.finalCta.description}
         </p>
 
-        {/* Button */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-          <button
-            onClick={onOpenBooking}
-            className="w-full sm:w-auto px-9 py-4 rounded-full text-sm font-semibold tracking-wide btn-gold-luxury flex items-center justify-center gap-2.5 shadow-md hover:scale-105 active:scale-98 transition-all cursor-pointer"
-          >
-            <span>{ANGELICA_DATA.finalCta.button}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-
+        {/* Primary Golden WhatsApp Button */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto">
           <a
-            href={ANGELICA_DATA.links.instagram}
+            href={RACHEL_DATA.links.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto px-7 py-4 rounded-full text-sm font-medium bg-white hover:bg-[#FAF7F2] border border-[#EAE2D8] text-[#4A433D] transition-colors flex items-center justify-center gap-2 shadow-2xs"
+            className="w-full sm:w-auto px-9 py-4 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase btn-gold-luxury flex items-center justify-center gap-2.5 shadow-md active:scale-98 transition-all text-center"
           >
-            <span>Conversar no Instagram</span>
+            <MessageCircle className="w-4.5 h-4.5 fill-current/15" />
+            <span>AGENDAR MEU HORÁRIO</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+
+          <a
+            href={RACHEL_DATA.links.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-7 py-4 rounded-full text-xs sm:text-sm font-medium bg-white hover:bg-[#FAF6EF] border border-[#E8DDD1] text-[#24201E] transition-colors flex items-center justify-center gap-2 shadow-2xs text-center"
+          >
+            <Instagram className="w-4 h-4 text-[#E1306C]" />
+            <span>Instagram Direct</span>
           </a>
         </div>
+
+        {/* Reassuring note */}
+        <p className="text-xs text-[#8C7F75] font-light mt-6">
+          Atendimento acolhedor e dedicado exclusivamente ao cuidado das suas unhas naturais em Belo Horizonte.
+        </p>
       </div>
     </section>
   );

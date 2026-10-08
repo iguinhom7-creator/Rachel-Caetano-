@@ -1,88 +1,105 @@
 import React from 'react';
-import { Sparkles, ArrowRight, ArrowDown, ShieldCheck, Heart } from 'lucide-react';
-import { ANGELICA_DATA } from '../data/angelicaData';
+import { ArrowRight, Instagram, MessageCircle, Sparkles, Shield, Heart, MapPin } from 'lucide-react';
+import { RACHEL_DATA } from '../data/rachelData';
 
-interface HeroProps {
-  onOpenBooking: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
-  const scrollToAbout = () => {
-    const el = document.querySelector('#sobre');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
+export const Hero: React.FC = () => {
   return (
-    <section id="inicio" className="pt-26 pb-8 sm:pt-30 sm:pb-10 overflow-hidden relative text-center">
-      {/* Background radial glow */}
-      <div 
-        className="absolute top-12 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-gradient-to-b from-[#F5ECE5]/70 to-transparent blur-3xl pointer-events-none -z-10" 
-        aria-hidden="true" 
+    <section id="inicio" className="pt-24 pb-12 sm:pt-32 sm:pb-16 relative overflow-hidden text-center">
+      {/* Delicate champagne ambient glow behind hero */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-[#F3E9DD]/60 via-[#FAF4ED]/30 to-transparent blur-3xl pointer-events-none -z-10"
+        aria-hidden="true"
       />
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
-        
-        {/* Profile Photo Frame - Showing the entire photo centered */}
-        <div className="flex justify-center mb-7">
-          <div className="relative group max-w-[250px] sm:max-w-[280px] w-full">
-            <div className="p-1.5 rounded-[28px] bg-gradient-to-b from-[#DFCCA6] via-[#FAF7F2] to-[#C8A97E] shadow-sm transition-transform duration-300 group-hover:scale-[1.01]">
-              <div className="w-full aspect-[533/800] rounded-[22px] bg-[#FAF7F2] overflow-hidden relative">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        {/* Central Logo Container - Preserving exact original logo proportion */}
+        <div className="flex justify-center mb-6">
+          <div className="relative group">
+            {/* Outer delicate champagne border ring */}
+            <div className="p-1 rounded-3xl bg-gradient-to-b from-[#DFC799] via-[#FFFFFF] to-[#C5A059]/40 shadow-xs transition-transform duration-300 hover:scale-[1.02]">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-[22px] bg-white overflow-hidden flex items-center justify-center p-2 border border-[#EFE5D8]">
                 <img
-                  src={ANGELICA_DATA.profilePhoto}
-                  alt="Angélica Souza - Nail Designer"
-                  className="w-full h-full object-cover object-[62%_center] scale-108 translate-x-3 sm:translate-x-4 transition-transform duration-500"
+                  src={RACHEL_DATA.logoUrl}
+                  alt="Rachel Caetano Nail Designer - Logo Oficial"
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-102"
                   onError={(e) => {
-                    if (e.currentTarget.src !== ANGELICA_DATA.fallbackProfilePhoto) {
-                      e.currentTarget.src = ANGELICA_DATA.fallbackProfilePhoto;
+                    if (e.currentTarget.src !== RACHEL_DATA.logoExternalUrl) {
+                      e.currentTarget.src = RACHEL_DATA.logoExternalUrl;
                     }
                   }}
                   loading="eager"
+                  referrerPolicy="no-referrer"
                 />
               </div>
             </div>
 
-            {/* Subtle verification badge */}
-            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-white border border-[#EAE2D8] text-[#A8824B] px-3.5 py-1 rounded-full shadow-2xs flex items-center gap-1.5 text-[11px] font-semibold whitespace-nowrap">
-              <Sparkles className="w-3.5 h-3.5 text-[#C8A97E]" />
-              <span>Nail Designer</span>
-            </div>
+            {/* Address badge below photo/logo */}
+            <a
+              href="#localizacao"
+              className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-white hover:bg-[#FAF6EF] border border-[#E8DDD1] hover:border-[#C5A059] text-[#735A2F] px-3.5 py-0.5 rounded-full shadow-2xs flex items-center gap-1.5 text-[11px] font-medium whitespace-nowrap transition-colors"
+            >
+              <MapPin className="w-3 h-3 text-[#C5A059]" />
+              <span>Rua Sergipe, 1087 · Savassi</span>
+            </a>
           </div>
         </div>
 
-        {/* Studio Name */}
-        <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#2C2724] leading-tight">
-          {ANGELICA_DATA.hero.title}
-          <span className="block text-base sm:text-lg font-normal text-[#8C7F75] font-display italic mt-1">
-            {ANGELICA_DATA.hero.subtitle}
-          </span>
-        </h1>
-
-        {/* Short Text */}
-        <p className="text-sm sm:text-base text-[#5C534D] font-light max-w-lg mx-auto mt-3 leading-relaxed">
-          {ANGELICA_DATA.hero.description}
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <button
-            onClick={onOpenBooking}
-            className="w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide btn-gold-luxury flex items-center justify-center gap-2 shadow-xs"
-          >
-            <span>{ANGELICA_DATA.hero.primaryCta}</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-
-          <button
-            onClick={scrollToAbout}
-            className="w-full sm:w-auto px-6 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-white hover:bg-[#F5ECE8] border border-[#EAE2D8] text-[#4A433D] transition-colors flex items-center justify-center gap-2 shadow-2xs"
-          >
-            <span>Sobre a profissional</span>
-            <ArrowDown className="w-4 h-4 text-[#A8824B]" />
-          </button>
+        {/* Studio Name & Specialization */}
+        <div className="space-y-1.5 mt-4">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#24201E] leading-[1.12]">
+            {RACHEL_DATA.name}
+          </h1>
+          <p className="font-display text-xl sm:text-2xl md:text-3xl font-medium text-[#8C6B32] tracking-wide">
+            {RACHEL_DATA.role}
+          </p>
         </div>
 
+        {/* Sophisticated Editorial Phrase */}
+        <p className="mt-4 font-display italic text-lg sm:text-xl md:text-2xl text-[#524B45] max-w-xl mx-auto leading-relaxed">
+          “{RACHEL_DATA.headlinePhrase}”
+        </p>
+
+        {/* Value pills (zero clutter) */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-[#736B63]">
+          <span className="inline-flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-[#E8DDD1]">
+            <Heart className="w-3 h-3 text-[#C5A059]" />
+            Unhas Naturais
+          </span>
+          <span className="inline-flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-[#E8DDD1]">
+            <Shield className="w-3 h-3 text-[#C5A059]" />
+            Biossegurança Rigorosa
+          </span>
+          <span className="inline-flex items-center gap-1 bg-white px-3 py-1 rounded-full border border-[#E8DDD1]">
+            <Sparkles className="w-3 h-3 text-[#C5A059]" />
+            Luxo Discreto
+          </span>
+        </div>
+
+        {/* Primary CTA Buttons */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto">
+          {/* Main button to WhatsApp */}
+          <a
+            href={RACHEL_DATA.links.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto flex-1 px-8 py-4 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase btn-gold-luxury flex items-center justify-center gap-2.5 shadow-md active:scale-98 transition-all text-center"
+          >
+            <MessageCircle className="w-4.5 h-4.5 fill-current/20" />
+            <span>AGENDAR MEU HORÁRIO</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+
+          {/* Quick Instagram Access */}
+          <a
+            href={RACHEL_DATA.links.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-6 py-4 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-white hover:bg-[#FAF6EF] border border-[#E8DDD1] text-[#24201E] transition-colors flex items-center justify-center gap-2 shadow-2xs text-center"
+          >
+            <Instagram className="w-4 h-4 text-[#E1306C]" />
+            <span>Instagram</span>
+          </a>
+        </div>
       </div>
     </section>
   );
