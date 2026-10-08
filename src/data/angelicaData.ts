@@ -4,7 +4,6 @@ export interface WorkPhoto {
   category: string;
   localUrl: string;
   fallbackUrl: string;
-  objectPosition?: string;
 }
 
 export const ANGELICA_DATA = {
@@ -13,7 +12,7 @@ export const ANGELICA_DATA = {
   specialty: "Especialista em Alongamento Natural",
   badge: "Nail Designer Premium",
 
-  // Profile photo
+  // Profile photo provided
   profilePhoto: "/images/angelica/perfil.jpg",
   fallbackProfilePhoto: "https://i.postimg.cc/xjkf7BnT/IMG-1849.jpg",
 
@@ -24,8 +23,8 @@ export const ANGELICA_DATA = {
     googleMaps: "https://share.google/JbGDdMfH4LNgpmwoX",
     gallery: "https://postimg.cc/gallery/bGB1S9q"
   },
-
   phone: "(31) 99096-9136",
+
   instagramHandle: "@angelica_souzanails",
   address: "Rua Joaquim de Paula, 369 – Inconfidência",
   city: "Belo Horizonte · MG",
@@ -50,14 +49,14 @@ export const ANGELICA_DATA = {
   specialtySection: {
     title: "Especialista em Alongamento Natural",
     subtitle: "Beleza que respeita a naturalidade das suas unhas.",
-    description: "Cada atendimento é desenvolvido buscando harmonia perfeita entre comprimento, formato, estrutura e o estilo pessoal de cada cliente, garantindo resistência com acabamento fino e imperceptível.",
+    description: "Cada procedimento é desenvolvido buscando a harmonia perfeita entre comprimento, formato, estrutura e o estilo pessoal de cada cliente, garantindo resistência sem perder a leveza.",
     concepts: [
-      { id: "acabamento", label: "Acabamento natural", desc: "Estrutura fina e curvatura delicada que respeita a estética original." },
-      { id: "formatos", label: "Formatos personalizados", desc: "Harmonia desenhada para valorizar a anatomia única das suas mãos." },
-      { id: "delicadeza", label: "Delicadeza", desc: "Elegância discreta e sofisticação em cada detalhe." },
-      { id: "durabilidade", label: "Durabilidade", desc: "Estrutura resistente preparada para acompanhar o seu dia a dia." },
-      { id: "cuidado", label: "Cuidado com as unhas", desc: "Preservação absoluta da integridade e saúde da lâmina natural." },
-      { id: "detalhes", label: "Atenção aos detalhes", desc: "Precisão artesanal desde o alinhamento até o acabamento final." }
+      { id: "acabamento", label: "Acabamento natural", desc: "Estrutura fina, curvatura sutil e aparência imperceptível." },
+      { id: "formatos", label: "Formatos personalizados", desc: "Adequação perfeita à anatomia e formato das suas mãos." },
+      { id: "delicadeza", label: "Delicadeza", desc: "Leveza visual que transmite sofisticação e elegância." },
+      { id: "durabilidade", label: "Durabilidade", desc: "Resistência planejada para o seu ritmo e dia a dia." },
+      { id: "cuidado", label: "Cuidado com as unhas", desc: "Preservação integral da saúde e integridade da lâmina." },
+      { id: "detalhes", label: "Atenção aos detalhes", desc: "Precisão em cada etapa, do alinhamento ao brilho final." }
     ]
   },
 
@@ -70,32 +69,28 @@ export const ANGELICA_DATA = {
         title: "Alongamento Natural & Alinhamento",
         category: "Alongamento Natural",
         localUrl: "/images/angelica/trabalho_1.png",
-        fallbackUrl: "https://i.postimg.cc/7LCtD1h8/IMG-1852.png",
-        objectPosition: "object-[center_60%]"
+        fallbackUrl: "https://i.postimg.cc/7LCtD1h8/IMG-1852.png"
       },
       {
         id: "trabalho-2",
-        title: "Estrutura Fina & Simetria",
+        title: "Estrutura Delicada & Brilho Gloss",
         category: "Alongamento Natural",
         localUrl: "/images/angelica/trabalho_2.jpg",
-        fallbackUrl: "https://i.postimg.cc/YS4DkN95/IMG-1854.jpg",
-        objectPosition: "object-center"
+        fallbackUrl: "https://i.postimg.cc/zfL25wB9/IMG-1848.jpg"
       },
       {
         id: "trabalho-3",
-        title: "Acabamento Delicado & Durabilidade",
+        title: "Acabamento Sofisticado & Simetria",
         category: "Alongamento Natural",
         localUrl: "/images/angelica/trabalho_3.jpg",
-        fallbackUrl: "https://i.postimg.cc/tg1vydTS/IMG-1847.jpg",
-        objectPosition: "object-[45%_72%]"
+        fallbackUrl: "https://i.postimg.cc/YS4DkN95/IMG-1854.jpg"
       },
       {
         id: "trabalho-4",
-        title: "Harmonia & Brilho Natural",
+        title: "Harmonia & Resistência Fina",
         category: "Alongamento Natural",
         localUrl: "/images/angelica/trabalho_4.jpg",
-        fallbackUrl: "https://i.postimg.cc/zfL25wB9/IMG-1848.jpg",
-        objectPosition: "object-center"
+        fallbackUrl: "https://i.postimg.cc/tg1vydTS/IMG-1847.jpg"
       }
     ] as WorkPhoto[]
   },

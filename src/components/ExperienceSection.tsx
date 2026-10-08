@@ -63,7 +63,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onOpenBook
         <div className="mt-12 text-center">
           <button
             onClick={onOpenBooking}
-            className="px-7 py-3.5 rounded-full text-xs font-semibold tracking-wide btn-gold-luxury shadow-xs inline-flex items-center gap-2 cursor-pointer"
+            className="px-7 py-3.5 rounded-full text-xs font-semibold tracking-wide btn-gold-luxury shadow-xs inline-flex items-center gap-2"
           >
             <span>Viver essa experiência · Agendar</span>
             <ArrowRight className="w-3.5 h-3.5" />

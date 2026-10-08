@@ -50,7 +50,7 @@ export const Footer: React.FC = () => {
 
             <button
               onClick={scrollToTop}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#EAE2D8] text-xs font-medium text-[#4A433D] hover:bg-[#F5ECE8] transition-colors shadow-2xs cursor-pointer ml-1"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white border border-[#EAE2D8] text-xs font-medium text-[#4A433D] hover:bg-[#F5ECE8] transition-colors shadow-2xs"
             >
               <span>Voltar ao topo</span>
               <ArrowUp className="w-3.5 h-3.5 text-[#A8824B]" />

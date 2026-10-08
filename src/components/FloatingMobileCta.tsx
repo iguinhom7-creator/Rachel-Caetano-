@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, ArrowUpRight } from 'lucide-react';
+import { Calendar, Instagram, ArrowUpRight } from 'lucide-react';
 
 interface FloatingMobileCtaProps {
   onOpenBooking: () => void;
@@ -11,7 +11,7 @@ export const FloatingMobileCta: React.FC<FloatingMobileCtaProps> = ({ onOpenBook
       <div className="max-w-md mx-auto pointer-events-auto">
         <button
           onClick={onOpenBooking}
-          className="w-full py-3.5 px-5 rounded-full btn-gold-luxury shadow-lg flex items-center justify-between border border-white/30 active:scale-98 transition-transform cursor-pointer"
+          className="w-full py-3.5 px-5 rounded-full btn-gold-luxury shadow-lg flex items-center justify-between border border-white/30 active:scale-98 transition-transform"
         >
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">

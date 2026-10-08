@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import { ANGELICA_DATA } from '../data/angelicaData';
 
 interface NavbarProps {
@@ -22,7 +22,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
     { label: 'Início', href: '#inicio' },
     { label: 'Sobre', href: '#sobre' },
     { label: 'Especialidade', href: '#especialidade' },
-    { label: 'Trabalhos', href: '#trabalhos' },
     { label: 'Instagram', href: '#instagram' },
     { label: 'Localização', href: '#localizacao' },
   ];
@@ -83,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
           <div className="flex items-center gap-3">
             <button
               onClick={onOpenBooking}
-              className="hidden sm:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide btn-gold-luxury shadow-xs cursor-pointer"
+              className="hidden sm:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide btn-gold-luxury shadow-xs"
             >
               <span>Agendar horário</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -93,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
-              className="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white border border-[#EAE2D8] text-[#2C2724] active:scale-95 transition-transform cursor-pointer"
+              className="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white border border-[#EAE2D8] text-[#2C2724] active:scale-95 transition-transform"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -117,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 <button
                   onClick={() => setIsOpen(false)}
                   aria-label="Fechar menu"
-                  className="w-9 h-9 rounded-full bg-white border border-[#EAE2D8] flex items-center justify-center text-[#2C2724] cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-white border border-[#EAE2D8] flex items-center justify-center text-[#2C2724]"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -149,7 +148,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                   setIsOpen(false);
                   onOpenBooking();
                 }}
-                className="w-full py-3.5 rounded-full text-xs font-semibold tracking-wide btn-gold-luxury flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 rounded-full text-xs font-semibold tracking-wide btn-gold-luxury flex items-center justify-center gap-2"
               >
                 <span>Agendar horário</span>
                 <ArrowUpRight className="w-4 h-4" />

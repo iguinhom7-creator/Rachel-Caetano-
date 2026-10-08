@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { ActionLayers } from './components/ActionLayers';
 import { AboutSection } from './components/AboutSection';
 import { SpecialtySection } from './components/SpecialtySection';
-import { GallerySection } from './components/GallerySection';
-import { DifferentialsSection } from './components/DifferentialsSection';
-import { ExperienceSection } from './components/ExperienceSection';
 import { InstagramSection } from './components/InstagramSection';
 import { LocationSection } from './components/LocationSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
@@ -29,33 +27,27 @@ export function App() {
       {/* Fixed Navigation Header */}
       <Navbar onOpenBooking={handleOpenBooking} />
 
-      {/* Main Sections Flow */}
+      {/* Main Page Flow */}
       <main className="flex-grow">
-        {/* 1. Hero / Primeira Tela */}
+        {/* 1. Hero / Primeira Tela (com a foto oficial de perfil) */}
         <Hero onOpenBooking={handleOpenBooking} />
 
-        {/* 2. Sobre a Profissional */}
+        {/* 2. Camadas de Links em destaque (Instagram, Google, Agendamento) */}
+        <ActionLayers onOpenBooking={handleOpenBooking} />
+
+        {/* 3. Sobre a Profissional */}
         <AboutSection onOpenBooking={handleOpenBooking} />
 
-        {/* 3. Especialidade */}
+        {/* 4. Especialidade */}
         <SpecialtySection />
 
-        {/* 4. Galeria de Trabalhos */}
-        <GallerySection onOpenBooking={handleOpenBooking} />
-
-        {/* 5. Diferenciais */}
-        <DifferentialsSection />
-
-        {/* 6. Experiência do Atendimento */}
-        <ExperienceSection onOpenBooking={handleOpenBooking} />
-
-        {/* 7. Instagram */}
+        {/* 5. Instagram */}
         <InstagramSection />
 
-        {/* 8. Localização */}
+        {/* 6. Localização */}
         <LocationSection />
 
-        {/* 9. CTA Final */}
+        {/* 7. CTA Final */}
         <FinalCtaSection onOpenBooking={handleOpenBooking} />
       </main>
 
