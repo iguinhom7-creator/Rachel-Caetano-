@@ -1,129 +1,88 @@
-import React, { useState } from 'react';
-import { Calendar, Sparkles, X, Maximize2, MapPin } from 'lucide-react';
-import { STUDIO_DATA } from '../data/studioData';
+import React from 'react';
+import { Sparkles, ArrowRight, ArrowDown, ShieldCheck, Heart } from 'lucide-react';
+import { ANGELICA_DATA } from '../data/angelicaData';
 
-export const Hero: React.FC = () => {
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [imgSrc, setImgSrc] = useState(STUDIO_DATA.photoUrl);
-  const [showFullPhoto, setShowFullPhoto] = useState(false);
+interface HeroProps {
+  onOpenBooking: () => void;
+}
 
-  const handleError = () => {
-    if (imgSrc !== STUDIO_DATA.fallbackPhotoUrl) {
-      setImgSrc(STUDIO_DATA.fallbackPhotoUrl);
+export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
+  const scrollToAbout = () => {
+    const el = document.querySelector('#sobre');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="topo" className="pt-6 pb-4 sm:pt-10 sm:pb-6 text-center max-w-xl mx-auto px-4">
-      {/* Centralized Square Photo Frame */}
-      <div className="flex justify-center mb-5">
-        <div className="relative group">
-          <div className="p-1 rounded-2xl bg-gradient-to-b from-[#DFCA9B] via-[#F8F2EA] to-[#C5A059] shadow-sm transition-transform duration-300 group-hover:scale-[1.02]">
-            <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-[14px] bg-[#F5EEE4] overflow-hidden relative cursor-pointer"
-                 onClick={() => setShowFullPhoto(true)}
-                 title="Toque para ver a foto completa"
-            >
-              <img
-                src={imgSrc}
-                alt="Rachel Caetano Nail Designer"
-                className={`w-full h-full object-cover object-[center_18%] transition-all duration-500 group-hover:scale-105 ${
-                  imgLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                onLoad={() => setImgLoaded(true)}
-                onError={handleError}
-                referrerPolicy="no-referrer"
-              />
+    <section id="inicio" className="pt-26 pb-8 sm:pt-30 sm:pb-10 overflow-hidden relative text-center">
+      {/* Background radial glow */}
+      <div 
+        className="absolute top-12 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-gradient-to-b from-[#F5ECE5]/70 to-transparent blur-3xl pointer-events-none -z-10" 
+        aria-hidden="true" 
+      />
 
-              {/* Discreet expand affordance on hover/tap */}
-              <div className="absolute bottom-1.5 right-1.5 w-6 h-6 rounded-md bg-black/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <Maximize2 className="w-3.5 h-3.5" />
+      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+        
+        {/* Profile Photo Frame */}
+        <div className="flex justify-center mb-5">
+          <div className="relative group">
+            <div className="p-1 rounded-3xl bg-gradient-to-b from-[#DFCCA6] via-[#FAF7F2] to-[#C8A97E] shadow-sm transition-transform duration-300 group-hover:scale-[1.02]">
+              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-[22px] bg-[#FAF7F2] overflow-hidden relative">
+                <img
+                  src={ANGELICA_DATA.profilePhoto}
+                  alt="Angélica Souza - Nail Designer"
+                  className="w-full h-full object-cover object-[center_18%] transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== ANGELICA_DATA.fallbackProfilePhoto) {
+                      e.currentTarget.src = ANGELICA_DATA.fallbackProfilePhoto;
+                    }
+                  }}
+                  loading="eager"
+                />
               </div>
             </div>
+
+            {/* Subtle verification badge */}
+            <div className="absolute -bottom-1 -right-1 bg-white border border-[#EAE2D8] text-[#A8824B] p-1.5 rounded-full shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Studio Name */}
-      <h1 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[#2C2926] leading-snug">
-        Rachel Caetano
-        <span className="block text-base sm:text-lg font-normal text-[#6B635B] mt-0.5 font-sans">
-          Nail Designer
-        </span>
-      </h1>
+        {/* Studio Name */}
+        <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#2C2724] leading-tight">
+          {ANGELICA_DATA.hero.title}
+          <span className="block text-base sm:text-lg font-normal text-[#8C7F75] font-display italic mt-1">
+            {ANGELICA_DATA.hero.subtitle}
+          </span>
+        </h1>
 
-      {/* Specialty Highlight */}
-      <div className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold tracking-widest text-[#9A7737] uppercase">
-        <Sparkles className="w-3 h-3 text-[#C5A059]" />
-        <span>{STUDIO_DATA.specialty}</span>
-        <Sparkles className="w-3 h-3 text-[#C5A059]" />
-      </div>
+        {/* Short Text */}
+        <p className="text-sm sm:text-base text-[#5C534D] font-light max-w-lg mx-auto mt-3 leading-relaxed">
+          {ANGELICA_DATA.hero.description}
+        </p>
 
-      {/* Studio Address in Savassi BH */}
-      <div className="mt-2">
-        <a 
-          href={STUDIO_DATA.mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-[#6B635B] hover:text-[#9A7737] bg-white border border-[#E8DED6] px-3 py-1 rounded-full shadow-2xs transition-colors group"
-        >
-          <MapPin className="w-3.5 h-3.5 text-[#C5A059] group-hover:scale-110 transition-transform shrink-0" />
-          <span>Rua Sergipe, 1087 · Savassi, BH</span>
-        </a>
-      </div>
-
-      {/* Golden Appointment Button */}
-      <div className="mt-5">
-        <a
-          href={STUDIO_DATA.links.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-gold-luxury w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide shadow-sm hover:shadow-md transition-all active:scale-[0.99]"
-        >
-          <Calendar className="w-4 h-4" />
-          <span>Agendar horário</span>
-        </a>
-      </div>
-
-      {/* Modal to view full vertical portrait */}
-      {showFullPhoto && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-200"
-          onClick={() => setShowFullPhoto(false)}
-        >
-          <div 
-            className="relative max-w-sm w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#E8DED6]"
-            onClick={(e) => e.stopPropagation()}
+        {/* CTA Buttons */}
+        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <button
+            onClick={onOpenBooking}
+            className="w-full sm:w-auto px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide btn-gold-luxury flex items-center justify-center gap-2 shadow-xs"
           >
-            <button
-              onClick={() => setShowFullPhoto(false)}
-              aria-label="Fechar"
-              className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/90 text-[#2C2926] flex items-center justify-center shadow-md hover:bg-white transition-transform active:scale-95"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <span>{ANGELICA_DATA.hero.primaryCta}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
 
-            <div className="aspect-[9/16] max-h-[80vh] w-full bg-[#FAF6F0] overflow-hidden">
-              <img
-                src={imgSrc}
-                alt="Rachel Caetano Nail Designer"
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
-
-            <div className="p-4 text-center bg-white border-t border-[#F2ECE5]">
-              <h3 className="font-display text-lg font-semibold text-[#2C2926]">
-                Rachel Caetano
-              </h3>
-              <p className="text-xs text-[#9A7737] font-medium">
-                Especialista em Unhas Naturais
-              </p>
-              <p className="text-[11px] text-[#8A8279] mt-0.5">
-                Rua Sergipe, 1087 · Savassi, BH
-              </p>
-            </div>
-          </div>
+          <button
+            onClick={scrollToAbout}
+            className="w-full sm:w-auto px-6 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wide bg-white hover:bg-[#F5ECE8] border border-[#EAE2D8] text-[#4A433D] transition-colors flex items-center justify-center gap-2 shadow-2xs"
+          >
+            <span>Sobre a profissional</span>
+            <ArrowDown className="w-4 h-4 text-[#A8824B]" />
+          </button>
         </div>
-      )}
+
+      </div>
     </section>
   );
 };

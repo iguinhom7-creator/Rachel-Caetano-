@@ -1,90 +1,66 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from 'react';
-import { Header } from './components/Header';
+import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ActionButtons } from './components/ActionButtons';
+import { ActionLayers } from './components/ActionLayers';
 import { AboutSection } from './components/AboutSection';
+import { SpecialtySection } from './components/SpecialtySection';
+import { InstagramSection } from './components/InstagramSection';
 import { LocationSection } from './components/LocationSection';
-import { GallerySection } from './components/GallerySection';
-import { CourseSection } from './components/CourseSection';
-import { FinalCTA } from './components/FinalCTA';
+import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { STUDIO_DATA } from './data/studioData';
-import { Check } from 'lucide-react';
+import { BookingModal } from './components/BookingModal';
+import { FloatingMobileCta } from './components/FloatingMobileCta';
 
-export default function App() {
-  const [showToast, setShowToast] = useState(false);
+export function App() {
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
-  const handleShare = async () => {
-    const shareData = {
-      title: STUDIO_DATA.title,
-      text: `${STUDIO_DATA.title} - ${STUDIO_DATA.specialty} · Savassi, BH:`,
-      url: window.location.href,
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch (err) {
-        copyUrlToClipboard();
-      }
-    } else {
-      copyUrlToClipboard();
-    }
+  const handleOpenBooking = () => {
+    setBookingModalOpen(true);
   };
 
-  const copyUrlToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2200);
+  const handleCloseBooking = () => {
+    setBookingModalOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF8] text-[#2C2926] flex flex-col font-sans selection:bg-[#EBDBC8] selection:text-[#3B2C1A]">
-      {/* Toast Notification */}
-      {showToast && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#2C2926] text-white text-xs px-4 py-2 rounded-full shadow-md flex items-center gap-2 animate-in fade-in duration-150">
-          <Check className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Link copiado para a área de transferência!</span>
-        </div>
-      )}
+    <div className="min-h-screen bg-[#FAF7F2] text-[#2C2724] font-body flex flex-col selection:bg-[#EBDBC8] selection:text-[#3B2C1A]">
+      {/* Fixed Navigation Header */}
+      <Navbar onOpenBooking={handleOpenBooking} />
 
-      {/* Clean Top Navigation */}
-      <Header onShare={handleShare} />
+      {/* Main Page Flow */}
+      <main className="flex-grow">
+        {/* 1. Hero / Primeira Tela (com a foto oficial de perfil) */}
+        <Hero onOpenBooking={handleOpenBooking} />
 
-      <main className="flex-1 pb-4">
-        {/* Hero Section: Foto na parte quadrada, Nome, Destaque, Endereço Savassi e Botão dourado de agendamento */}
-        <Hero />
+        {/* 2. Camadas de Links em destaque (Instagram, Google, Agendamento) */}
+        <ActionLayers onOpenBooking={handleOpenBooking} />
 
-        {/* Botões Principais: WhatsApp, Cursos, Instagram, Google Savassi BH */}
-        <ActionButtons />
+        {/* 3. Sobre a Profissional */}
+        <AboutSection onOpenBooking={handleOpenBooking} />
 
-        {/* Apresentação Curta e Elegante */}
-        <AboutSection />
+        {/* 4. Especialidade */}
+        <SpecialtySection />
 
-        {/* Localização do Estúdio: Rua Sergipe, 1087 · Savassi BH */}
+        {/* 5. Instagram */}
+        <InstagramSection />
+
+        {/* 6. Localização */}
         <LocationSection />
 
-        {/* Seção de Trabalhos: Espaço de Fotografias Reais & Instagram */}
-        <GallerySection />
-
-        {/* Destaque Explicativo para Cursos & Capacitação posicionado por último */}
-        <CourseSection />
-
-        {/* Chamada Final para Agendamento */}
-        <FinalCTA />
+        {/* 7. CTA Final */}
+        <FinalCtaSection onOpenBooking={handleOpenBooking} />
       </main>
 
-      {/* Footer Minimalista com Endereço e Links */}
+      {/* Footer */}
       <Footer />
 
-      {/* Botão Flutuante de WhatsApp para navegação ágil no mobile */}
-      <FloatingWhatsApp />
+      {/* Floating Action Button for Mobile */}
+      <FloatingMobileCta onOpenBooking={handleOpenBooking} />
+
+      {/* Booking / Scheduling Modal */}
+      <BookingModal isOpen={bookingModalOpen} onClose={handleCloseBooking} />
     </div>
   );
 }
+
+export default App;
