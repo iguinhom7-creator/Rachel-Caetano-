@@ -1,77 +1,122 @@
 import React from 'react';
-import { Instagram, ArrowUpRight, Sparkles, Heart } from 'lucide-react';
-import { RACHEL_DATA } from '../data/rachelData';
+import { Instagram, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ANGELICA_DATA } from '../data/angelicaData';
 
 export const InstagramSection: React.FC = () => {
+  const previewImages = [
+    { url: '/images/angelica/trabalho_1.png', fallback: 'https://i.postimg.cc/7LCtD1h8/IMG-1852.png', objectPosition: 'object-[center_60%]' },
+    { url: '/images/angelica/trabalho_2.jpg', fallback: 'https://i.postimg.cc/YS4DkN95/IMG-1854.jpg', objectPosition: 'object-center' },
+    { url: '/images/angelica/trabalho_3.jpg', fallback: 'https://i.postimg.cc/tg1vydTS/IMG-1847.jpg', objectPosition: 'object-[45%_72%]' },
+    { url: '/images/angelica/trabalho_4.jpg', fallback: 'https://i.postimg.cc/zfL25wB9/IMG-1848.jpg', objectPosition: 'object-center' }
+  ];
+
   return (
-    <section className="py-16 sm:py-20 bg-[#FAF8F5]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="relative rounded-3xl bg-white border border-[#E8DDD1] p-8 sm:p-12 shadow-sm overflow-hidden text-center">
-          {/* Subtle ambient corner glow */}
-          <div
-            className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#E1306C]/10 via-[#F3E9DD]/40 to-transparent rounded-full blur-2xl pointer-events-none"
-            aria-hidden="true"
-          />
-
-          {/* Instagram Icon Badge */}
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#FDF2F5] to-[#FAF8F5] border border-[#E8DDD1] mx-auto flex items-center justify-center text-[#E1306C] shadow-2xs mb-5">
-            <Instagram className="w-8 h-8 stroke-[1.8]" />
+    <section id="instagram" className="py-16 sm:py-24 bg-[#FAF7F2]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-3">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#A8824B]">
+            <Instagram className="w-3.5 h-3.5 text-[#E1306C]" />
+            <span>Redes Sociais</span>
           </div>
-
-          {/* Heading */}
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#A8824B] mb-2">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Rede Social & Dia a Dia</span>
-          </div>
-
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#24201E] tracking-tight">
-            Acompanhe meu trabalho no Instagram
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#2C2724]">
+            {ANGELICA_DATA.instagramSection.title}
           </h2>
-
-          <p className="font-display text-lg sm:text-xl text-[#8C6B32] italic mt-1.5">
-            Inspirações diárias, procedimentos ao vivo nos stories e resultados dos atendimentos
+          <p className="text-sm sm:text-base text-[#6B615A] font-light">
+            {ANGELICA_DATA.instagramSection.description}
           </p>
 
-          <p className="mt-3 text-xs sm:text-sm text-[#6B625B] font-light max-w-md mx-auto">
-            Siga <span className="font-semibold text-[#24201E]">{RACHEL_DATA.instagramHandle}</span> e fique por dentro de vagas na agenda, técnicas exclusivas e dicas de cuidados para as unhas.
-          </p>
+          <div className="pt-2">
+            <a
+              href={ANGELICA_DATA.links.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold tracking-wide bg-gradient-to-r from-[#E1306C] to-[#C13584] text-white shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-98 transition-all"
+            >
+              <Instagram className="w-4 h-4 fill-current" />
+              <span>{ANGELICA_DATA.instagramSection.cta}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
 
-          {/* Featured Works Mini-Strip */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
-            {RACHEL_DATA.galleryItems.slice(0, 4).map((work) => (
+        {/* Profile Card & Feed Grid */}
+        <div className="max-w-3xl mx-auto bg-white rounded-3xl p-5 sm:p-7 border border-[#EAE2D8] shadow-sm">
+          {/* Profile header row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-5 border-b border-[#F5ECE8] text-center sm:text-left">
+            <div className="flex items-center gap-3.5">
+              <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] shrink-0">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white border border-white">
+                  <img
+                    src={ANGELICA_DATA.profilePhoto}
+                    alt="Angélica Souza Instagram"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = ANGELICA_DATA.fallbackProfilePhoto;
+                    }}
+                  />
+                </div>
+              </div>
+              <div>
+                <a
+                  href={ANGELICA_DATA.links.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-base text-[#2C2724] hover:text-[#A8824B] flex items-center justify-center sm:justify-start gap-1.5 transition-colors"
+                >
+                  <span>angelica_souzanails</span>
+                  <Sparkles className="w-3 h-3 text-[#C8A97E]" />
+                </a>
+                <p className="text-xs text-[#8C7F75] font-light mt-0.5">
+                  Nail Designer · Especialista em Alongamento Natural
+                </p>
+              </div>
+            </div>
+
+            <a
+              href={ANGELICA_DATA.links.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold text-[#A8824B] hover:text-[#7D5E2F] bg-[#FAF7F2] border border-[#EAE2D8] px-4 py-2 rounded-full transition-colors whitespace-nowrap"
+            >
+              Ver perfil no Instagram
+            </a>
+          </div>
+
+          {/* 4 feed square photos preview */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+            {previewImages.map((img, i) => (
               <a
-                key={work.id}
-                href={RACHEL_DATA.links.instagram}
+                key={i}
+                href={ANGELICA_DATA.links.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative aspect-square rounded-2xl overflow-hidden border border-[#E8DDD1] bg-[#FAF8F5] block"
+                className="group relative aspect-square rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#EAE2D8]"
               >
                 <img
-                  src={work.imageUrl}
-                  alt={work.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  src={img.url}
+                  alt={`Feed Angélica Souza ${i + 1}`}
+                  onError={(e) => {
+                    e.currentTarget.src = img.fallback;
+                  }}
+                  className={`w-full h-full object-cover ${img.objectPosition} group-hover:scale-105 transition-transform duration-500`}
                 />
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                  <Heart className="w-5 h-5 fill-white" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white gap-1.5 text-xs font-medium">
+                  <Instagram className="w-4 h-4" />
+                  <span>Ver post</span>
                 </div>
               </a>
             ))}
           </div>
 
-          {/* Primary Instagram Follow Button */}
-          <div className="mt-8 flex justify-center">
-            <a
-              href={RACHEL_DATA.links.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase btn-gold-luxury flex items-center justify-center gap-2.5 shadow-md active:scale-98 transition-all"
-            >
-              <Instagram className="w-4.5 h-4.5" />
-              <span>SEGUIR NO INSTAGRAM</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+          <div className="mt-4 text-center">
+            <span className="text-[11px] text-[#8C7F75] font-light">
+              Publicações com novidades, bastidores e detalhes dos alongamentos
+            </span>
           </div>
         </div>
+
       </div>
     </section>
   );
