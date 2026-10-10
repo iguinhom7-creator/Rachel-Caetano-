@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { X, Instagram, MapPin, Sparkles, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { ANGELICA_DATA } from '../data/angelicaData';
 
@@ -8,7 +8,7 @@ interface BookingModalProps {
 }
 
 export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
-  const [copied, setCopied] = React.useState(false);
+  const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
 
@@ -66,7 +66,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) =
         {/* Modal Body */}
         <div className="py-5 space-y-3.5">
           <p className="text-xs sm:text-sm text-[#4A433D] font-light text-center leading-relaxed">
-            Entre em contato para consultar horários disponíveis e agendar seu atendimento exclusivo.
+            Entre em contato para consultar datas, tirar dúvidas e agendar seu atendimento exclusivo.
           </p>
 
           {/* WhatsApp Direct CTA Button */}

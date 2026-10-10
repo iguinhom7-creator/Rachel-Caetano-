@@ -6,7 +6,7 @@ export const DifferentialsSection: React.FC = () => {
   const icons = [
     <Feather className="w-5 h-5 text-[#A8824B]" />,
     <UserCheck className="w-5 h-5 text-[#A8824B]" />,
-    <Sparkles className="w-5 h-5 text-[#A8824B]" />,
+    <ShieldCheck className="w-5 h-5 text-[#A8824B]" />,
     <Gem className="w-5 h-5 text-[#A8824B]" />
   ];
 
@@ -15,12 +15,16 @@ export const DifferentialsSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#A8824B]">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Nossos Pilares</span>
+          </div>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#2C2724]">
             {ANGELICA_DATA.differentials.title}
           </h2>
           <p className="text-sm sm:text-base text-[#6B615A] font-light">
-            Conheça os motivos que fazem do nosso studio a escolha de quem busca sofisticação sem artificialidade.
+            Conheça os motivos que fazem do nosso atendimento a escolha de quem busca sofisticação sem artificialidade.
           </p>
         </div>
 

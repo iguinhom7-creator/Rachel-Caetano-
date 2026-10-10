@@ -5,10 +5,14 @@
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --color-gold-champagne: #C5A059;
   --color-gold-light: #DFCA9B;
-  --color-gold-dark: #9A7737;
-  --color-nude-canvas: #FAFAF8;
+  --color-gold-dark: #8C6B32;
+  --color-gold-accent: #B2883F;
+  --color-nude-canvas: #FAF8F5;
+  --color-nude-surface: #FFFFFF;
   --color-nude-soft: #F5EFEB;
-  --color-nude-muted: #E8DED6;
+  --color-nude-border: #E8DDD1;
+  --color-charcoal-primary: #24201E;
+  --color-charcoal-muted: #6B625B;
 }
 
 @layer utilities {
@@ -20,20 +24,37 @@
   }
 }
 
-/* Subtle gold metallic shimmer button styling */
+/* Refined Champagne Gold Metallic Button */
 .btn-gold-luxury {
-  background: linear-gradient(135deg, #DFCA9B 0%, #C5A059 50%, #B2883F 100%);
+  background: linear-gradient(135deg, #DFC799 0%, #C5A059 52%, #B3893E 100%);
   color: #FFFFFF;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px -2px rgba(197, 160, 89, 0.28);
 }
 
 .btn-gold-luxury:hover {
-  background: linear-gradient(135deg, #E6D4AE 0%, #D0AD69 50%, #BC9349 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px -4px rgba(197, 160, 89, 0.35);
+  background: linear-gradient(135deg, #E6D2AB 0%, #CDA863 52%, #BD944A 100%);
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 22px -3px rgba(197, 160, 89, 0.38);
 }
 
 .btn-gold-luxury:active {
   transform: translateY(0);
+  box-shadow: 0 2px 8px -2px rgba(197, 160, 89, 0.25);
+}
+
+/* Secondary Champagne Border Button */
+.btn-gold-outline {
+  background: #FFFFFF;
+  color: #382E22;
+  border: 1px solid #DFCA9B;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-gold-outline:hover {
+  background: #FAF6EF;
+  border-color: #C5A059;
+  color: #24201E;
+  transform: translateY(-1px);
 }

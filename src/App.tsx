@@ -9,10 +9,12 @@ import { LocationSection } from './components/LocationSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
+import { VideoModal } from './components/VideoModal';
 import { FloatingMobileCta } from './components/FloatingMobileCta';
 
 export function App() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   const handleOpenBooking = () => {
     setBookingModalOpen(true);
@@ -20,6 +22,14 @@ export function App() {
 
   const handleCloseBooking = () => {
     setBookingModalOpen(false);
+  };
+
+  const handleOpenVideo = () => {
+    setVideoModalOpen(true);
+  };
+
+  const handleCloseVideo = () => {
+    setVideoModalOpen(false);
   };
 
   return (
@@ -32,8 +42,11 @@ export function App() {
         {/* 1. Hero / Primeira Tela (com a foto oficial de perfil) */}
         <Hero onOpenBooking={handleOpenBooking} />
 
-        {/* 2. Camadas de Links em destaque (Instagram, Google, Agendamento) */}
-        <ActionLayers onOpenBooking={handleOpenBooking} />
+        {/* 2. Camadas de Links em destaque (WhatsApp, Espaço em Vídeo, Instagram, Google) */}
+        <ActionLayers 
+          onOpenBooking={handleOpenBooking} 
+          onOpenVideo={handleOpenVideo} 
+        />
 
         {/* 3. Sobre a Profissional */}
         <AboutSection onOpenBooking={handleOpenBooking} />
@@ -59,6 +72,9 @@ export function App() {
 
       {/* Booking / Scheduling Modal */}
       <BookingModal isOpen={bookingModalOpen} onClose={handleCloseBooking} />
+
+      {/* Space Presentation Video Modal */}
+      <VideoModal isOpen={videoModalOpen} onClose={handleCloseVideo} />
     </div>
   );
 }

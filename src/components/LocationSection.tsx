@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Navigation, Copy, Check, ExternalLink, Sparkles } from 'lucide-react';
+import { MapPin, Navigation, Copy, Check, ExternalLink } from 'lucide-react';
 import { ANGELICA_DATA } from '../data/angelicaData';
 
 export const LocationSection: React.FC = () => {
@@ -25,7 +25,7 @@ export const LocationSection: React.FC = () => {
             {ANGELICA_DATA.location.title}
           </h2>
           <p className="text-sm sm:text-base text-[#6B615A] font-light">
-            Ambiente pensado para o seu conforto, segurança e bem-estar durante todo o atendimento.
+            Ambiente pensado para o seu conforto, acolhimento e bem-estar durante todo o atendimento.
           </p>
         </div>
 
@@ -52,7 +52,7 @@ export const LocationSection: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto">
               <button
                 onClick={handleCopy}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-full text-xs font-medium bg-white hover:bg-[#F5ECE8] border border-[#EAE2D8] text-[#4A433D] transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-full text-xs font-medium bg-white hover:bg-[#F5ECE8] border border-[#EAE2D8] text-[#4A433D] transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
               >
                 {copied ? (
                   <>
@@ -100,6 +100,12 @@ export const LocationSection: React.FC = () => {
                 Atendimento com horário agendado
               </span>
             </div>
+          </div>
+
+          <div className="mt-4 text-center">
+            <p className="text-xs text-[#8C7F75] font-light">
+              Fácil acesso · Para agendamentos e horários disponíveis, entre em contato com antecedência.
+            </p>
           </div>
         </div>
 

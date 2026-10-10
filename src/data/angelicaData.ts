@@ -18,6 +18,8 @@ export const ANGELICA_DATA = {
 
   links: {
     whatsapp: "https://wa.me/5531990969136",
+    vimeo: "https://vimeo.com/1234661450?share=copy&fl=sv&fe=ci",
+    vimeoEmbed: "https://player.vimeo.com/video/1234661450?autoplay=1&title=0&byline=0&portrait=0&badge=0&texttrack=&transcript=0&cc=0&app_id=122963",
     instagram: "https://www.instagram.com/angelica_souzanails?stkn=YTJlYWVqbjMydDM5",
     instagramDirect: "https://ig.me/m/angelica_souzanails",
     googleMaps: "https://share.google/JbGDdMfH4LNgpmwoX",
